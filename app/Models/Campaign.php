@@ -17,7 +17,7 @@ class Campaign extends Model
      * @var array
      */
     protected $fillable = [
-        'timezone', 'name', 'slug', 'starts_at', 'ends_at',
+        'timezone', 'name', 'slug', 'symbols', 'starts_at', 'ends_at',
     ];
 
     protected $dates = ['created_at', 'updated_at', 'starts_at', 'ends_at'];
@@ -25,7 +25,7 @@ class Campaign extends Model
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -35,10 +35,10 @@ class Campaign extends Model
     public static function search($query)
     {
         return empty($query) ? static::query()
-            : static::where('name', 'like', '%'.$query.'%')
-                ->orWhere('timezone', 'like', '%'.$query.'%')
-                ->orWhere('starts_at', 'like', '%'.$query.'%')
-                ->orWhere('ends_at', 'like', '%'.$query.'%');
+            : static::where('name', 'like', '%' . $query . '%')
+            ->orWhere('timezone', 'like', '%' . $query . '%')
+            ->orWhere('starts_at', 'like', '%' . $query . '%')
+            ->orWhere('ends_at', 'like', '%' . $query . '%');
     }
 
     public function getAvailableTimezones()

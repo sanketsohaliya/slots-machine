@@ -23,5 +23,12 @@ class UserSeeder extends Seeder
             'level' => 'admin',
             'password' => Hash::make('test123'),
         ]);
+
+        User::create([
+            'name' => 'Viewer',
+            'email' => 'viewer@thunderbite.com',
+            'level' => 'viewer',
+            'password' => Hash::make('view123'),
+        ]);
     }
 }

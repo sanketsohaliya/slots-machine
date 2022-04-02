@@ -18,4 +18,11 @@
     'ends_at' => old('ends_at') ?? ($campaign->ends_at === null ? $campaign->ends_at : $campaign->ends_at->format('d-m-Y H:i:s')),
 ])
 
+@include('backstage.partials.forms.select', [
+    'field' => 'symbols',
+    'label' => 'Number Of Symbols',
+    'value' => old('symbol') ?? $campaign->symbol,
+    'options' => [6,7,8,9,10],
+])
+
 @include('backstage.partials.forms.submit')

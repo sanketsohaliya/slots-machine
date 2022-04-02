@@ -8,7 +8,13 @@ class FrontendController extends Controller
 {
     public function loadCampaign(Campaign $campaign)
     {
-        return view('frontend.index');
+        $symbols = unserialize($campaign->symbols);
+        for ($i = 0; $i < 3; $i++) {
+            for ($j = 0; $j < 5; $j++) {
+                $reels[$i][$j] = array_rand($symbols);
+            }
+        }
+        return view('frontend.index', ['reels' => $reels]);
     }
 
     public function placeholder()
