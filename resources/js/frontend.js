@@ -16,6 +16,10 @@ let paylines = [
 ];
 spin.addEventListener("click", function () {
     hideMessage();
+    var elements = document.getElementsByClassName('cell-border');
+    while (elements.length > 0) {
+        elements[0].classList.remove('cell-border');
+    }
     axios.get(url)
         .then(function (response) {
             let reels = response.data.reels;
@@ -27,17 +31,21 @@ spin.addEventListener("click", function () {
                     items.push(reels[j][k]);
                 });
             });
+            let won = false;
             paylines.forEach(payline => {
-                matchline = [];
+                let matchline = [];
                 payline.forEach(i => {
                     matchline.push(items[i - 1]);
                 });
                 const counts = {};
                 for (const num of matchline) {
                     counts[num] = counts[num] ? counts[num] + 1 : 1;
-                    if (counts[num] >= 3) {
-                        console.log(payline);
-                        console.log(num);
+                    if (counts[num] >= 3 && won === false) {
+                        won = true;
+                        payline.forEach(i => {
+                            let slot = document.getElementById("slot" + i);
+                            slot.classList.add("cell-border");
+                        });
                         showMessage();
                     }
                 }

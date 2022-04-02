@@ -2205,12 +2205,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
   \**********************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
 var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
     axios = _require["default"];
 
@@ -2219,6 +2213,12 @@ var url = spin.getAttribute('data-url');
 var paylines = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [1, 7, 13, 9, 5], [11, 7, 3, 9, 15], [6, 2, 3, 4, 10], [6, 12, 13, 14, 10], [1, 2, 8, 14, 15], [11, 12, 8, 4, 5]];
 spin.addEventListener("click", function () {
   hideMessage();
+  var elements = document.getElementsByClassName('cell-border');
+
+  while (elements.length > 0) {
+    elements[0].classList.remove('cell-border');
+  }
+
   axios.get(url).then(function (response) {
     var reels = response.data.reels;
     var i = 1;
@@ -2229,31 +2229,26 @@ spin.addEventListener("click", function () {
         items.push(reels[j][k]);
       });
     });
+    var won = false;
     paylines.forEach(function (payline) {
-      matchline = [];
+      var matchline = [];
       payline.forEach(function (i) {
         matchline.push(items[i - 1]);
       });
       var counts = {};
 
-      var _iterator = _createForOfIteratorHelper(matchline),
-          _step;
+      for (var _i = 0, _matchline = matchline; _i < _matchline.length; _i++) {
+        var num = _matchline[_i];
+        counts[num] = counts[num] ? counts[num] + 1 : 1;
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var num = _step.value;
-          counts[num] = counts[num] ? counts[num] + 1 : 1;
-
-          if (counts[num] >= 3) {
-            console.log(payline);
-            console.log(num);
-            showMessage();
-          }
+        if (counts[num] >= 3 && won === false) {
+          won = true;
+          payline.forEach(function (i) {
+            var slot = document.getElementById("slot" + i);
+            slot.classList.add("cell-border");
+          });
+          showMessage();
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
       }
     });
   })["catch"](function (error) {

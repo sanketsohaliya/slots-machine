@@ -44,6 +44,9 @@
             font-size: 1.5rem;
             font-weight: bold;
         }
+        .cell-border {
+            border: 2px solid #ff000d;
+        }
 
     </style>
 
@@ -57,7 +60,7 @@
     @foreach($reels as $reel)
     <tr class="strikeout">
         @foreach($reel as $slot)
-            <td><img id="item{{$i++}}" src="{{$slot}}" alt="Slot Image"></td>
+            <td id="slot{{$i}}"><img id="item{{$i++}}" src="{{$slot}}" alt="Slot Image"></td>
         @endforeach
     </tr>
     @endforeach
