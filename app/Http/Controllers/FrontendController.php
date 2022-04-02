@@ -16,11 +16,12 @@ class FrontendController extends Controller
             }
         }
         if (request()->ajax()) {
-            if ($user->remaining_spins >= 0) {
+            $remaining_spins = $user->remaining_spins;
+            if ($remaining_spins > 0) {
                 $user->remaining_spins--;
                 $user->save();
+                return response()->json(['reels' => $reels, 'remaining_spins' => $remaining_spins]);
             }
-            return response()->json(['reels' => $reels, 'remaining_spins' => $user->remaining_spins]);
         }
         return view('frontend.index', ['reels' => $reels]);
     }

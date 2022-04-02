@@ -2213,17 +2213,16 @@ var url = spin.getAttribute('data-url');
 var paylines = [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10], [11, 12, 13, 14, 15], [1, 7, 13, 9, 5], [11, 7, 3, 9, 15], [6, 2, 3, 4, 10], [6, 12, 13, 14, 10], [1, 2, 8, 14, 15], [11, 12, 8, 4, 5]];
 spin.addEventListener("click", function () {
   hideMessage();
-  var elements = document.getElementsByClassName('cell-border');
-
-  while (elements.length > 0) {
-    elements[0].classList.remove('cell-border');
-  }
-
   axios.get(url).then(function (response) {
     var remaining_spins = response.data.remaining_spins;
-    console.log(remaining_spins);
 
-    if (remaining_spins >= 0) {
+    if (remaining_spins > 0) {
+      var elements = document.getElementsByClassName('cell-border');
+
+      while (elements.length > 0) {
+        elements[0].classList.remove('cell-border');
+      }
+
       var reels = response.data.reels;
       var i = 1;
       var items = [];

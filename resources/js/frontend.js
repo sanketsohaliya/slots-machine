@@ -16,15 +16,14 @@ let paylines = [
 ];
 spin.addEventListener("click", function () {
     hideMessage();
-    var elements = document.getElementsByClassName('cell-border');
-    while (elements.length > 0) {
-        elements[0].classList.remove('cell-border');
-    }
     axios.get(url)
         .then(function (response) {
             let remaining_spins = response.data.remaining_spins;
-            console.log(remaining_spins);
-            if (remaining_spins >= 0) {
+            if (remaining_spins > 0) {
+                var elements = document.getElementsByClassName('cell-border');
+                while (elements.length > 0) {
+                    elements[0].classList.remove('cell-border');
+                }
                 let reels = response.data.reels;
                 let i = 1;
                 let items = [];
