@@ -22,37 +22,44 @@ spin.addEventListener("click", function () {
     }
     axios.get(url)
         .then(function (response) {
-            let reels = response.data.reels;
-            let i = 1;
-            let items = [];
-            reels.forEach(function (reel, j) {
-                reel.forEach(function (img, k) {
-                    document.getElementById("item" + i++).src = reels[j][k];
-                    items.push(reels[j][k]);
+            let remaining_spins = response.data.remaining_spins;
+            console.log(remaining_spins);
+            if (remaining_spins >= 0) {
+                let reels = response.data.reels;
+                let i = 1;
+                let items = [];
+                reels.forEach(function (reel, j) {
+                    reel.forEach(function (img, k) {
+                        document.getElementById("item" + i++).src = "/storage/images/" + reels[j][k];
+                        items.push(reels[j][k]);
+                    });
                 });
-            });
-            let won = false;
-            paylines.forEach(payline => {
-                let matchline = [];
-                payline.forEach(i => {
-                    matchline.push(items[i - 1]);
-                });
-                const counts = {};
-                // for (const num of match => matchline) {
-                matchline.forEach(function (num, itemindex) {
-                    counts[num] = counts[num] ? counts[num] + 1 : 1;
-                    if (counts[num] >= 3 && won === false) {
-                        if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
-                            won = true;
-                            payline.forEach(i => {
-                                let slot = document.getElementById("slot" + i);
-                                slot.classList.add("cell-border");
-                            });
-                            showMessage();
+                let won = false;
+                paylines.forEach(payline => {
+                    let matchline = [];
+                    payline.forEach(i => {
+                        matchline.push(items[i - 1]);
+                    });
+                    const counts = {};
+                    // for (const num of match => matchline) {
+                    matchline.forEach(function (num, itemindex) {
+                        counts[num] = counts[num] ? counts[num] + 1 : 1;
+                        if (counts[num] >= 3 && won === false) {
+                            if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
+                                won = true;
+                                payline.forEach(i => {
+                                    let slot = document.getElementById("slot" + i);
+                                    slot.classList.add("cell-border");
+                                });
+                                showMessage('You Won!');
+                            }
                         }
-                    }
+                    });
                 });
-            });
+            }
+            else {
+                showMessage("You don't have any spins left! Better luck next time...");
+            }
         })
         .catch(function (error) {
             // handle error
@@ -60,10 +67,10 @@ spin.addEventListener("click", function () {
         })
 });
 
-function showMessage() {
+function showMessage(text) {
     const msg = document.getElementById("message");
+    msg.innerHTML = text;
     msg.style.display = "block";
-    msg.classList.add('animated', 'pulse')
 }
 
 function hideMessage() {

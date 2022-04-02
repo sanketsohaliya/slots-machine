@@ -58,18 +58,16 @@
 <table id="slot">
     @php $i = 1; @endphp
     @foreach($reels as $reel)
-    <tr class="strikeout">
+    <tr>
         @foreach($reel as $slot)
-            <td id="slot{{$i}}"><img id="item{{$i++}}" src="{{$slot}}" alt="Slot Image"></td>
+            <td id="slot{{$i}}"><img id="item{{$i++}}" src="/storage/images/{{$slot}}" height="50" alt="Slot Image"></td>
         @endforeach
     </tr>
     @endforeach
 </table>
 <button id="spin" data-url={{ url()->current() }}>SPIN</button>
 </div>
-<div id="message" class="message">
-    You Won!
-</div>
+<div id="message" class="message"></div>
 <script src="/js/app.js"></script>
 </body>
 

@@ -8,6 +8,7 @@ class FrontendController extends Controller
 {
     public function loadCampaign(Campaign $campaign)
     {
+        $user = auth()->user();
         $symbols = unserialize($campaign->symbols);
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 5; $j++) {
@@ -15,7 +16,11 @@ class FrontendController extends Controller
             }
         }
         if (request()->ajax()) {
-            return response()->json(['reels' => $reels]);
+            if ($user->remaining_spins >= 0) {
+                $user->remaining_spins--;
+                $user->save();
+            }
+            return response()->json(['reels' => $reels, 'remaining_spins' => $user->remaining_spins]);
         }
         return view('frontend.index', ['reels' => $reels]);
     }

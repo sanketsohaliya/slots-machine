@@ -22,13 +22,15 @@ class UserSeeder extends Seeder
             'email' => 'test@thunderbite.com',
             'level' => 'admin',
             'password' => Hash::make('test123'),
+            'remaining_spins' => 4,
         ]);
 
         User::create([
-            'name' => 'Viewer',
-            'email' => 'viewer@thunderbite.com',
+            'name' => 'Alexa',
+            'email' => 'alexa@thunderbite.com',
             'level' => 'viewer',
-            'password' => Hash::make('view123'),
+            'password' => Hash::make('test123'),
+            'remaining_spins' => 4,
         ]);
     }
 }
