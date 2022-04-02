@@ -2235,21 +2235,22 @@ spin.addEventListener("click", function () {
       payline.forEach(function (i) {
         matchline.push(items[i - 1]);
       });
-      var counts = {};
+      var counts = {}; // for (const num of match => matchline) {
 
-      for (var _i = 0, _matchline = matchline; _i < _matchline.length; _i++) {
-        var num = _matchline[_i];
+      matchline.forEach(function (num, itemindex) {
         counts[num] = counts[num] ? counts[num] + 1 : 1;
 
         if (counts[num] >= 3 && won === false) {
-          won = true;
-          payline.forEach(function (i) {
-            var slot = document.getElementById("slot" + i);
-            slot.classList.add("cell-border");
-          });
-          showMessage();
+          if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
+            won = true;
+            payline.forEach(function (i) {
+              var slot = document.getElementById("slot" + i);
+              slot.classList.add("cell-border");
+            });
+            showMessage();
+          }
         }
-      }
+      });
     });
   })["catch"](function (error) {
     // handle error

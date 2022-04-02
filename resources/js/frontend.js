@@ -38,17 +38,20 @@ spin.addEventListener("click", function () {
                     matchline.push(items[i - 1]);
                 });
                 const counts = {};
-                for (const num of matchline) {
+                // for (const num of match => matchline) {
+                matchline.forEach(function (num, itemindex) {
                     counts[num] = counts[num] ? counts[num] + 1 : 1;
                     if (counts[num] >= 3 && won === false) {
-                        won = true;
-                        payline.forEach(i => {
-                            let slot = document.getElementById("slot" + i);
-                            slot.classList.add("cell-border");
-                        });
-                        showMessage();
+                        if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
+                            won = true;
+                            payline.forEach(i => {
+                                let slot = document.getElementById("slot" + i);
+                                slot.classList.add("cell-border");
+                            });
+                            showMessage();
+                        }
                     }
-                }
+                });
             });
         })
         .catch(function (error) {
