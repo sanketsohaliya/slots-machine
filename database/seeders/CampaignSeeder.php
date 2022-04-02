@@ -17,12 +17,12 @@ class CampaignSeeder extends Seeder
         Campaign::truncate();
 
         $symbols = [
-            'https://via.placeholder.com/50.png?text=Q' => '2',
-            'https://via.placeholder.com/50.png?text=W' => '4',
-            'https://via.placeholder.com/50.png?text=E' => '1',
-            'https://via.placeholder.com/50.png?text=R' => '3',
-            'https://via.placeholder.com/50.png?text=T' => '6',
-            'https://via.placeholder.com/50.png?text=Y' => '5',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=Q' => '2',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=W' => '4',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=E' => '1',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=R' => '3',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=T' => '6',
+            'https://via.placeholder.com/50.png/FFFF00/000000?text=Y' => '5',
         ];
 
         Campaign::create([

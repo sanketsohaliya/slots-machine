@@ -2164,6 +2164,8 @@ module.exports = {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./frontend */ "./resources/js/frontend.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -2194,6 +2196,34 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/frontend.js":
+/*!**********************************!*\
+  !*** ./resources/js/frontend.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
+
+var _require = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"),
+    axios = _require["default"];
+
+var spin = document.getElementById("spin");
+var url = spin.getAttribute('data-url');
+spin.addEventListener("click", function () {
+  axios.get(url).then(function (response) {
+    var reels = response.data.reels;
+    var i = 1;
+    reels.forEach(function (reel, j) {
+      reel.forEach(function (img, k) {
+        document.getElementById("slot" + i++).src = reels[j][k];
+      });
+    });
+  })["catch"](function (error) {
+    // handle error
+    console.log(error);
+  });
+});
 
 /***/ }),
 

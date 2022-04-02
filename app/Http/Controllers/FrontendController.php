@@ -14,6 +14,9 @@ class FrontendController extends Controller
                 $reels[$i][$j] = array_rand($symbols);
             }
         }
+        if (request()->ajax()) {
+            return response()->json(['reels' => $reels]);
+        }
         return view('frontend.index', ['reels' => $reels]);
     }
 
