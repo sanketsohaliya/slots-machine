@@ -23,8 +23,8 @@ class GameTable extends TableComponent
             ],
 
             [
-                'title' => 'title',
-                'attribute' => 'title',
+                'title' => 'prize_name',
+                'attribute' => 'name',
                 'sort' => true,
             ],
 

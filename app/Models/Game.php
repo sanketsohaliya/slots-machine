@@ -24,7 +24,7 @@ class Game extends Model
         self::filterDates($query, $campaign);
 
         if ($data = request('filter1')) {
-            $query->where('account', 'like', $data.'%');
+            $query->where('account', 'like', $data . '%');
         }
 
         if ($data = request('filter2')) {
@@ -32,15 +32,15 @@ class Game extends Model
         }
 
         if ($data = request('filter3')) {
-            $query->whereRaw('HOUR(revealed_at) >= '.$data);
+            $query->whereRaw('HOUR(revealed_at) >= ' . $data);
         }
 
         if ($data = request('filter4')) {
-            $query->whereRaw('HOUR(revealed_at) <= '.$data);
+            $query->whereRaw('HOUR(revealed_at) <= ' . $data);
         }
 
         $query->leftJoin('prizes', 'prizes.id', '=', 'games.prize_id')
-            ->select('games.id', 'account', 'prize_id', 'revealed_at', 'prizes.title')
+            ->select('games.id', 'account', 'prize_id', 'revealed_at', 'prizes.name')
             ->where('games.campaign_id', $campaign->id);
 
         return $query;
