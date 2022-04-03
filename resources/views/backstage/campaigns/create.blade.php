@@ -8,7 +8,7 @@
     <div id="card" class="bg-white shadow-lg mx-auto rounded-b-lg">
         <div class="px-10 pt-4 pb-8">
             <h1>Create a new campaign</h1>
-            <form method="POST" action="{{ route('backstage.campaigns.store') }}">
+            <form method="POST" action="{{ route('backstage.campaigns.store') }}" enctype = "multipart/form-data">
                 @include('backstage.campaigns.form')
             </form>
         </div>

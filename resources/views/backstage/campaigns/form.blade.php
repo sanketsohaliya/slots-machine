@@ -18,11 +18,18 @@
     'ends_at' => old('ends_at') ?? ($campaign->ends_at === null ? $campaign->ends_at : $campaign->ends_at->format('d-m-Y H:i:s')),
 ])
 
-@include('backstage.partials.forms.select', [
-    'field' => 'symbols',
-    'label' => 'Number Of Symbols',
-    'value' => old('symbol') ?? $campaign->symbol,
-    'options' => [6,7,8,9,10],
-])
+@for($i=0;$i<10;$i++)
+    @include('backstage.partials.forms.file', [
+        'field' => 'symbols[]',
+        'label' => 'Symbol ' . $i+1
+    ])
+
+    @include('backstage.partials.forms.number', [
+        'field' => 'weights[]',
+        'label' => 'Weight',
+        'value' => 1,
+        'step' => 1,
+    ])
+@endfor
 
 @include('backstage.partials.forms.submit')

@@ -46,6 +46,10 @@ class CampaignsController extends Controller
             'timezone' => 'required',
             'starts_at' => 'required|date_format:d-m-Y H:i:s',
             'ends_at' => 'required|date_format:d-m-Y H:i:s',
+            'symbols' => 'required|array|between:6,10',
+            'symbols.*' => 'image|max:2048',
+            'weights' => 'required|array|between:6,10',
+            'weights.*' => 'numeric|min:1|max:10',
         ]);
 
         //parse dates from campaign's timezone
@@ -101,7 +105,7 @@ class CampaignsController extends Controller
     {
         // Validation
         $data = $this->validate(request(), [
-            'name' => 'required|max:255|unique:campaigns,name,'.$campaign->id,
+            'name' => 'required|max:255|unique:campaigns,name,' . $campaign->id,
             'timezone' => 'required',
             'starts_at' => 'required|date_format:d-m-Y H:i:s',
             'ends_at' => 'required|date_format:d-m-Y H:i:s',
