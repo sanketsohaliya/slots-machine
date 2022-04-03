@@ -61,6 +61,18 @@ class CampaignsController extends Controller
             ->setTimezone('UTC');
         $data['ends_at'] = $startDate;
 
+        //serialize symbols and weeight for storing
+        $symbols = [];
+        $images = request()->all('symbols');
+        foreach ($images as $image) {
+            foreach ($image as $i) {
+                $i->store('public/symbols');
+                $symbols[] = $i->hashName();
+            }
+        }
+        $data['symbols'] = serialize($symbols);
+        $data['weights'] = serialize(request()->all('weights'));
+
         // Create the campaign
         $campaign = Campaign::create($data);
 

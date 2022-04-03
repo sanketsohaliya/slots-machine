@@ -12,7 +12,7 @@ class FrontendController extends Controller
         $symbols = unserialize($campaign->symbols);
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 5; $j++) {
-                $reels[$i][$j] = array_rand($symbols);
+                $reels[$i][$j] = $symbols[array_rand($symbols)];
             }
         }
         if (request()->ajax()) {

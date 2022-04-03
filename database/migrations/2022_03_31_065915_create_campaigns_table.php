@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->text('symbols');
+            $table->text('weights');
             $table->timestamp('starts_at')->nullable(); //campaign can be used (games played on it) from this date onwards
             $table->timestamp('ends_at')->nullable(); //campaign can be used until this date
             $table->timestamps();

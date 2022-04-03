@@ -17,7 +17,7 @@ class Campaign extends Model
      * @var array
      */
     protected $fillable = [
-        'timezone', 'name', 'slug', 'symbols', 'starts_at', 'ends_at',
+        'timezone', 'name', 'slug', 'symbols', 'weights', 'starts_at', 'ends_at',
     ];
 
     protected $dates = ['created_at', 'updated_at', 'starts_at', 'ends_at'];

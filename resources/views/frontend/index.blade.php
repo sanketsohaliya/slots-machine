@@ -60,7 +60,7 @@
     @foreach($reels as $reel)
     <tr>
         @foreach($reel as $slot)
-            <td id="slot{{$i}}"><img id="item{{$i++}}" src="/storage/images/{{$slot}}" height="50" alt="Slot Image"></td>
+            <td id="slot{{$i}}"><img id="item{{$i++}}" src="/storage/symbols/{{$slot}}" height="50" alt="Slot Image"></td>
         @endforeach
     </tr>
     @endforeach
