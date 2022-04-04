@@ -2224,6 +2224,8 @@ spin.addEventListener("click", function () {
       }
 
       var reels = response.data.reels;
+      var weights = response.data.weights;
+      var symbols = response.data.symbols;
       var i = 1;
       var items = [];
       reels.forEach(function (reel, j) {
@@ -2233,30 +2235,44 @@ spin.addEventListener("click", function () {
         });
       });
       var won = false;
+      showMessage("Try again! You have " + remaining_spins + " spins left.");
       paylines.forEach(function (payline) {
         var matchline = [];
         payline.forEach(function (i) {
           matchline.push(items[i - 1]);
         });
-        var counts = {}; // for (const num of match => matchline) {
+        var counts = {};
+        var points = 0;
+        matchline.forEach(function (symbol, matchIndex) {
+          counts[symbol] = counts[symbol] ? counts[symbol] + 1 : 1;
 
-        matchline.forEach(function (num, itemindex) {
-          counts[num] = counts[num] ? counts[num] + 1 : 1;
+          if (counts[symbol] =  true && won === false) {
+            if (matchline[matchIndex - 1] === symbol && matchline[matchIndex - 2] === symbol) {
+              var weight = weights[symbols.indexOf(symbol)];
+              console.log(weight);
+              points = weight[0];
 
-          if (counts[num] >= 3 && won === false) {
-            if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
+              if (matchline[matchIndex + 1] === symbol) {
+                points = weight[1];
+
+                if (matchline[matchIndex + 2] === symbol) {
+                  points = weight[2];
+                }
+              }
+
               won = true;
-              payline.forEach(function (i) {
-                var slot = document.getElementById("slot" + i);
+              payline.forEach(function (j) {
+                var slot = document.getElementById("slot" + j);
                 slot.classList.add("cell-border");
               });
-              showMessage('You Won!');
+              hideMessage();
+              showMessage('Yay! You Won ' + points + ' Points...');
             }
           }
         });
       });
     } else {
-      showMessage("You don't have any spins left! Better luck next time...");
+      showMessage("You don't have any spins left! Come again tomorrow...");
     }
   })["catch"](function (error) {
     // handle error

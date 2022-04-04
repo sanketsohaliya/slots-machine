@@ -24,11 +24,10 @@
         'label' => 'Symbol ' . $i+1
     ])
 
-    @include('backstage.partials.forms.number', [
+    @include('backstage.partials.forms.text', [
         'field' => 'weights[]',
-        'label' => 'Weight',
-        'value' => 1,
-        'step' => 1,
+        'label' => 'Points for 3,4 and 5 Matches',
+        'value' => '10,40,100',
     ])
 @endfor
 

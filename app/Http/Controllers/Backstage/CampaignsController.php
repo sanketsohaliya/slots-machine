@@ -49,7 +49,6 @@ class CampaignsController extends Controller
             'symbols' => 'required|array|between:6,10',
             'symbols.*' => 'image|max:2048',
             'weights' => 'required|array|between:6,10',
-            'weights.*' => 'numeric|min:1|max:10',
         ]);
 
         //parse dates from campaign's timezone

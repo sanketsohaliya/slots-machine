@@ -25,6 +25,8 @@ spin.addEventListener("click", function () {
                     elements[0].classList.remove('cell-border');
                 }
                 let reels = response.data.reels;
+                let weights = response.data.weights;
+                let symbols = response.data.symbols;
                 let i = 1;
                 let items = [];
                 reels.forEach(function (reel, j) {
@@ -34,30 +36,41 @@ spin.addEventListener("click", function () {
                     });
                 });
                 let won = false;
+                showMessage("Try again! You have " + remaining_spins + " spins left.");
                 paylines.forEach(payline => {
                     let matchline = [];
                     payline.forEach(i => {
                         matchline.push(items[i - 1]);
                     });
                     const counts = {};
-                    // for (const num of match => matchline) {
-                    matchline.forEach(function (num, itemindex) {
-                        counts[num] = counts[num] ? counts[num] + 1 : 1;
-                        if (counts[num] >= 3 && won === false) {
-                            if (matchline[itemindex - 1] === num && matchline[itemindex - 2] === num) {
+                    let points = 0;
+                    matchline.forEach(function (symbol, matchIndex) {
+                        counts[symbol] = counts[symbol] ? counts[symbol] + 1 : 1;
+                        if (counts[symbol] = 3 && won === false) {
+                            if (matchline[matchIndex - 1] === symbol && matchline[matchIndex - 2] === symbol) {
+                                let weight = weights[symbols.indexOf(symbol)];
+                                console.log(weight);
+                                points = weight[0];
+                                if (matchline[matchIndex + 1] === symbol) {
+                                    points = weight[1];
+                                    if (matchline[matchIndex + 2] === symbol) {
+                                        points = weight[2];
+                                    }
+                                }
                                 won = true;
-                                payline.forEach(i => {
-                                    let slot = document.getElementById("slot" + i);
+                                payline.forEach(j => {
+                                    let slot = document.getElementById("slot" + j);
                                     slot.classList.add("cell-border");
                                 });
-                                showMessage('You Won!');
+                                hideMessage();
+                                showMessage('Yay! You Won ' + points + ' Points...');
                             }
                         }
                     });
                 });
             }
             else {
-                showMessage("You don't have any spins left! Better luck next time...");
+                showMessage("You don't have any spins left! Come again tomorrow...");
             }
         })
         .catch(function (error) {
