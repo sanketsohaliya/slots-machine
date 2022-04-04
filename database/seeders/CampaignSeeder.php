@@ -23,14 +23,22 @@ class CampaignSeeder extends Seeder
             'lemon.png',
             'orange.png',
             'strawberry.png',
-            // 'https://via.placeholder.com/50.png/FFFF00/000000?text=Y',
+        ];
+
+        $weights = [
+            [10, 20, 30],
+            [40, 50, 60],
+            [70, 80, 90],
+            [100, 110, 120],
+            [130, 140, 150],
+            [160, 170, 180],
         ];
 
         Campaign::create([
             'timezone' => 'Europe/London',
             'name' => 'Test Campaign 1',
             'symbols' => serialize($symbols),
-            'weights' => serialize([3, 6, 2, 7, 9, 10]),
+            'weights' => serialize($weights),
             'starts_at' => now()->startOfDay(),
             'ends_at' => now()->addDays(7)->endOfDay(),
         ]);
@@ -39,7 +47,7 @@ class CampaignSeeder extends Seeder
             'timezone' => 'Europe/London',
             'name' => 'Test Campaign 2',
             'symbols' => serialize($symbols),
-            'weights' => serialize([2, 9, 3, 8, 3, 4]),
+            'weights' => serialize($weights),
             'starts_at' => now()->startOfDay(),
             'ends_at' => now()->addDays(7)->endOfDay(),
         ]);
