@@ -65,7 +65,7 @@ class CampaignsController extends Controller
         $images = request()->all('symbols');
         foreach ($images as $image) {
             foreach ($image as $i) {
-                $i->store('public/symbols');
+                $i->store('images/symbols');
                 $symbols[] = $i->hashName();
             }
         }

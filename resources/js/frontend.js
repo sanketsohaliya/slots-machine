@@ -31,7 +31,7 @@ spin.addEventListener("click", function () {
                 let items = [];
                 reels.forEach(function (reel, j) {
                     reel.forEach(function (img, k) {
-                        document.getElementById("item" + i++).src = "/storage/symbols/" + reels[j][k];
+                        document.getElementById("item" + i++).src = "/images/symbols/" + reels[j][k];
                         items.push(reels[j][k]);
                     });
                 });
