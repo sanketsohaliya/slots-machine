@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Campaign;
+use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    public function loadCampaign(Campaign $campaign)
+    public function loadCampaign(Campaign $campaign, Request $request)
     {
         $user = auth()->user();
+        if (!isset($user)) {
+            $username = $request->get('a');
+            $user = User::where('name', $username)->first();
+        }
         $symbols = unserialize($campaign->symbols);
         $weights = unserialize($campaign->weights)['weights'];
         foreach ($weights as $i => $weight) {

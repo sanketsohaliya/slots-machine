@@ -65,7 +65,7 @@
     </tr>
     @endforeach
 </table>
-<button id="spin" data-url={{ url()->current() }}>SPIN</button>
+<button id="spin" data-url={{ url()->full() }}>SPIN</button>
 </div>
 <div id="message" class="message"></div>
 <script src="/js/app.js"></script>

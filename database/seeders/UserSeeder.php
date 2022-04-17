@@ -26,8 +26,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => 'Alexa',
-            'email' => 'alexa@thunderbite.com',
+            'name' => 'username',
+            'email' => 'username@thunderbite.com',
             'level' => 'viewer',
             'password' => Hash::make('test123'),
             'remaining_spins' => 4,
