@@ -18,6 +18,7 @@ Route::prefix('backstage')->name('backstage.')->middleware(['auth', 'setActiveCa
     Route::resource('campaigns', CampaignsController::class);
 
     Route::group(['middleware' => ['redirectIfNoActiveCampaign']], function () {
+        Route::post('games/export', [GameController::class, 'export']);
         Route::resource('games', GameController::class);
         Route::resource('prizes', PrizeController::class);
     });

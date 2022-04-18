@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backstage;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Backstage\Campaigns\UpdateRequest;
 use App\Models\Campaign;
+use App\Exports\GamesExport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Backstage\Campaigns\UpdateRequest;
 
 class GameController extends Controller
 {
@@ -89,5 +91,10 @@ class GameController extends Controller
     public function destroy(Campaign $campaign)
     {
         //
+    }
+
+    public function export()
+    {
+        return Excel::download(new GamesExport, 'games.xlsx');
     }
 }

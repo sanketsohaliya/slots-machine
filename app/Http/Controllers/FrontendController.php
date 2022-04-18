@@ -4,13 +4,9 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Game;
-use App\Models\User;
-use App\Models\Prize;
 use App\Models\Campaign;
-
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use function PHPUnit\Framework\isNull;
+
 
 class FrontendController extends Controller
 {

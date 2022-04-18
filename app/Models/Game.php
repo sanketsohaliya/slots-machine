@@ -31,6 +31,7 @@ class Game extends Model
             $query->where('prize_id', $data);
         }
 
+
         if ($data = request('filter3')) {
             $query->whereRaw('HOUR(revealed_at) >= ' . $data);
         }
@@ -42,7 +43,6 @@ class Game extends Model
         $query->leftJoin('prizes', 'prizes.id', '=', 'games.prize_id')
             ->select('games.id', 'account', 'prize_id', 'revealed_at', 'prizes.name')
             ->where('games.campaign_id', $campaign->id);
-
         return $query;
     }
 
