@@ -64,6 +64,7 @@ spin.addEventListener("click", function () {
                                 });
                                 hideMessage();
                                 showMessage('Yay! You Won ' + points + ' Points...');
+                                axios.get(url + '?won=true');
                             }
                         }
                     });
